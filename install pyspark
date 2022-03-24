@@ -1,0 +1,7 @@
+Steps
+    1)Install JDK :
+        sudo apt install default-jdk
+    2)Install PySpark :
+        pip install pyspark
+    3)To test if pyspark is install properly
+        pip show pyspark | grep "Location:" | cut -d' ' -f 2 |while read i ;do python3.7 $i"/pyspark/examples/src/main/python/pi.py" 1000 ; done
