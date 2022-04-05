@@ -1,0 +1,40 @@
+##Download kafka
+    wget https://archive.apache.org/dist/kafka/3.0.0/kafka_2.12-3.0.0.tgz
+###extract the tar file
+    tar -zxvf kafka_2.12-3.0.0.tgz
+
+##Start KAFKA
+KAFKA="/opt/soft/kafka_2.12-3.0.0"
+nohup $KAFKA/bin/zookeeper-server-start.sh $KAFKA/config/zookeeper.properties &
+nohup $KAFKA/bin/kafka-server-start.sh $KAFKA/config/server.properties &
+
+### create topic
+$KAFKA/bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092 --partitions 10 --replication-factor 1
+
+#describe topic
+$KAFKA/bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+
+#write into kafka topic
+$KAFKA/bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092
+
+cat /media/a/StudioSpaceByMe/workspace/kagglernd/src/flink/data | wc -l
+cat /media/a/StudioSpaceByMe/workspace/kagglernd/src/flink/data | $KAFKA/bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092
+
+#read kafka topic
+$KAFKA/bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
+
+
+# TO install  flink
+#https://ci.apache.org/projects/flink/flink-docs-release-1.10/dev/table/python/common_questions.html#execute-pyflink-jobs-with-python-virtual-environment
+    wget https://ci.apache.org/projects/flink/flink-docs-release-1.10/downloads/setup-pyflink-virtual-env.sh
+    chmod u+x setup-pyflink-virtual-env.sh
+    setup-pyflink-virtual-env.sh 1.10.2
+    source venv/bin/activate
+# to install Pyspark
+    Use python 3.7
+    pip3 install pysaprk==2.4.4
+
+cd Downloads
+source venv/bin/activate
+python3.7 /media/a/StudioSpaceByMe/workspace/kagglernd/src/flink/spark_kafka.py
+python /media/a/aa72c642-72c9-4277-a679-b25236c3da0e/workspace/kagglernd/src/flink/flink_kafka.py
